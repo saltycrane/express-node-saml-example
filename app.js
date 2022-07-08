@@ -41,7 +41,7 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ limit: "15mb" }));
 app.use(
-  // TODO: these session setting should be changed
+  // TODO: these session settings should be changed
   session({
     secret: "keyboard cat",
     resave: false,
@@ -68,19 +68,13 @@ app.get(
 );
 
 // This is the callback URL
-// Once Identity Provider validated the Credentials it will be called with base64 SAML req body
-app.post(
-  "/login/sso/callback",
-  passport.authenticate("saml", {
-    failureRedirect: "/",
-    failureFlash: true,
-  }),
-  (req, res) => {
-    console.log("app.js. /login/sso/callback");
-    console.log("app.js, SAMLResponse", req.body.SAMLResponse);
-    res.send("Logged in successfully");
-  }
-);
+// https://www.antoniogioia.com/saml-sso-setup-with-express-and-passport/
+app.post("/login/sso/callback", (req, res) => {
+  passport.authenticate("saml", (err, user, info) => {
+    console.log("app.js. /login/sso/callback", { err, user, info });
+    res.send(`User: <pre>${JSON.stringify(user, null, 2)}</pre>`);
+  })(req, res);
+});
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);

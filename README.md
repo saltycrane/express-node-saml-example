@@ -1,6 +1,9 @@
 # express-passport-saml-example
 
-Example Express.js, Passport.js OneLogin SAML SSO authentication app using https://medium.com/brightlab-techblog/implement-single-sign-on-saml-strategy-with-node-js-passport-js-e8b01ff79cc3
+Example Express.js, Passport.js OneLogin SAML SSO authentication app using:
+
+- https://medium.com/brightlab-techblog/implement-single-sign-on-saml-strategy-with-node-js-passport-js-e8b01ff79cc3
+- https://www.antoniogioia.com/saml-sso-setup-with-express-and-passport/
 
 ## OneLogin configuration
 
@@ -45,12 +48,14 @@ SSO_CERT='XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 - go to http://localhost:3000 in an Incognito window of your web browser
 - click "Login"
 - get redirected to the OneLogin login page enter username and password
-- get redirected to http://localhost:3000/login/sso/callback which says "Logged in successfully"
+- get redirected to http://localhost:3000/login/sso/callback which displays the user parameters including email
 
 ## Links
 
+- https://www.passportjs.org/concepts/authentication/
 - https://github.com/node-saml/passport-saml
 - https://github.com/expressjs/session
-- https://www.passportjs.org/
 - https://developers.onelogin.com/
 - https://medium.com/brightlab-techblog/implement-single-sign-on-saml-strategy-with-node-js-passport-js-e8b01ff79cc3
+- https://www.antoniogioia.com/saml-sso-setup-with-express-and-passport/
+- https://github.com/gbraad/passport-saml-example/
