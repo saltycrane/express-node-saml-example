@@ -53,7 +53,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get("/", (req, res) => {
-  res.send('<a href="/login/sso">Login</a>');
+  console.log("app.js, /, req.user", req.user);
+  if (req.user) {
+    res.send(`User: <pre>${JSON.stringify(req.user, null, 2)}</pre>`);
+  } else {
+    res.send('<a href="/login/sso">Login</a>');
+  }
 });
 
 // This Route Authenticates req with IDP
@@ -70,9 +75,11 @@ app.get(
 // This is the callback URL
 // https://www.antoniogioia.com/saml-sso-setup-with-express-and-passport/
 app.post("/login/sso/callback", (req, res) => {
-  passport.authenticate("saml", (err, user, info) => {
-    console.log("app.js. /login/sso/callback", { err, user, info });
-    res.send(`User: <pre>${JSON.stringify(user, null, 2)}</pre>`);
+  passport.authenticate("saml", (err, user) => {
+    console.log("app.js, /login/sso/callback, user", user);
+    req.login(user, (err) => {
+      return res.redirect("/");
+    });
   })(req, res);
 });
 
