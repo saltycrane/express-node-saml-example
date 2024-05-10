@@ -28,7 +28,7 @@ const strategy = new passportSaml.Strategy(
     callbackUrl: process.env.SSO_CALLBACK_URL,
     idpCert: process.env.SSO_CERT,
     // wantAssertionsSigned: false, // less secure way to avoid "Invalid signature" error
-    // audience: process.env.SSO_ISSUER, // the default for `audience` is the value of `issuer`
+    // audience: process.env.SSO_ISSUER, // the default for `audience` is the value of `issuer`. Can be set to `false` to disable audience verification.
   },
   (profile, done) => done(null, profile)
 );
