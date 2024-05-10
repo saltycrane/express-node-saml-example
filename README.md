@@ -74,3 +74,11 @@ SSO_COOKIE_SESSION_SECRET='xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 - https://www.antoniogioia.com/saml-sso-setup-with-express-and-passport/
 - https://expressjs.com/en/resources/middleware/cookie-session.html
 - https://github.com/gbraad/passport-saml-example/
+
+## Troubleshooting
+
+- if you get a "Access Denied You do not have access to this application. Please contact your administrator." message, ensure your user is added to the default role for the app in the OneLogin admin UI.
+  - go to https://your-domain.onelogin.com/roles
+  - select the "Default" role
+  - select the "Users" tab
+  - ensure your user is added to that role or add it
