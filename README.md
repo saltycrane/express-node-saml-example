@@ -12,10 +12,14 @@ Example Express.js, Passport.js OneLogin SAML SSO authentication app using:
 - create OneLogin developer account here: https://developers.onelogin.com/
 - for example, use the domain `your-domain`
 - at https://your-domain-dev.onelogin.com/admin2/apps select "Add App" > "SAML Custom Connector (Advanced)"
-- on "Configuration" tab, set the following 3 fields:
+- on "Configuration" tab, set the following 5 fields:
+  - "Audience (EntityID)" [1]: `your-example-app`
   - "Recipient": `your-example-app`
   - "ACS (Consumer) URL Validator*": `http://localhost:3000/login/sso/callback`
   - "ACS (Consumer) URL*": `http://localhost:3000/login/sso/callback`
+  - "SAML signature event" [1]: "Both"
+
+[1] required as of `node-saml` v4.0.0
 
 ## Set environment variables
 
@@ -77,8 +81,22 @@ SSO_COOKIE_SESSION_SECRET='xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 
 ## Troubleshooting
 
-- if you get a "Access Denied You do not have access to this application. Please contact your administrator." message, ensure your user is added to the default role for the app in the OneLogin admin UI.
-  - go to https://your-domain.onelogin.com/roles
-  - select the "Default" role
-  - select the "Users" tab
-  - ensure your user is added to that role or add it
+### "Access Denied You do not have access to this application. Please contact your administrator."
+
+ - ensure your user is added to the default role for the app in the OneLogin admin UI.
+   - go to https://your-domain.onelogin.com/roles
+   - select the "Default" role
+   - select the "Users" tab
+   - ensure your user is added to that role or add it
+
+### Error: Invalid signature
+
+- in the OneLogin admin UI, in the "Configuration" tab, ensure that "SAML signature element" is set to "Both"
+- alternatively, as a less secure option, add the following configuration to the `passport-saml` `Strategy`: `wantAssertionsSigned: false`.
+- `node-saml` changed in v4.0.0 to require all assertions be signed. See https://github.com/node-saml/node-saml/pull/177
+
+### Error: SAML assertion AudienceRestriction has no Audience value
+
+- in `node-saml`, `audience` defaults to the value of `issuer`
+- in the OneLogin admin UI, in the "Configuration" tab, ensure that "Audience (EntityID)" is the same as `issuer`. (In this example it is the value of "Recipient", `your-example-app`)
+

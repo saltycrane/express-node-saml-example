@@ -5,7 +5,7 @@ const cookieSession = require("cookie-session");
 const express = require("express");
 const helmet = require("helmet");
 const passport = require("passport");
-const passportSaml = require("passport-saml");
+const passportSaml = require("@node-saml/passport-saml");
 
 const PORT = 3000;
 
@@ -26,7 +26,9 @@ const strategy = new passportSaml.Strategy(
     entryPoint: process.env.SSO_ENTRYPOINT,
     issuer: process.env.SSO_ISSUER,
     callbackUrl: process.env.SSO_CALLBACK_URL,
-    cert: process.env.SSO_CERT,
+    idpCert: process.env.SSO_CERT,
+    // wantAssertionsSigned: false, // less secure way to avoid "Invalid signature" error
+    // audience: process.env.SSO_ISSUER, // the default for `audience` is the value of `issuer`
   },
   (profile, done) => done(null, profile)
 );
@@ -76,6 +78,9 @@ app.get(
 // https://www.antoniogioia.com/saml-sso-setup-with-express-and-passport/
 app.post("/login/sso/callback", (req, res) => {
   passport.authenticate("saml", (err, user) => {
+    if (err) {
+      console.error("app.js, /login/sso/callback, err", err);
+    }
     console.log("app.js, /login/sso/callback, user", user);
 
     // store user in cookie-based session
