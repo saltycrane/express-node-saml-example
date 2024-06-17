@@ -8,12 +8,11 @@
     "lib": ["es2019"],
     "module": "commonjs",
     "moduleResolution": "node",
-    "noEmit": false,
-    "outDir": "dist",
+    "noEmit": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": false,
     "target": "es2019"
   },
-  "include": ["app.ts"]
+  "include": ["src/**/*.ts"]
 }

@@ -1,11 +1,6 @@
-# express-passport-saml-example
+# express-node-saml-example
 
-Example Express.js, Passport.js OneLogin SAML SSO authentication app using:
-
-- https://medium.com/brightlab-techblog/implement-single-sign-on-saml-strategy-with-node-js-passport-js-e8b01ff79cc3
-- https://www.antoniogioia.com/saml-sso-setup-with-express-and-passport/
-- https://github.com/gbraad/passport-saml-example/
-- https://expressjs.com/en/resources/middleware/cookie-session.html
+Example Express.js OneLogin SAML SSO authentication app using [`node-saml`](https://github.com/node-saml/node-saml).
 
 ## OneLogin configuration
 
