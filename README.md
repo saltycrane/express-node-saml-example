@@ -51,7 +51,7 @@ SSO_COOKIE_SESSION_SECRET='xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 
     ``` sh
     npm install
-    node app.js
+    npm run dev
     ```
 
 - go to http://localhost:3000 in an Incognito window of your web browser
